@@ -1,12 +1,77 @@
 ---
 name: review
-description: Test quality scoring using Dave Farley's 8 properties (Farley Score). Use when reviewing a test suite for quality, maintainability, and TDD adherence.
+description: PR review and test suite quality scoring. Covers TDD compliance, code quality checks across five categories, and Farley Score for deep test suite analysis.
 ---
 # Review
 
-## Dave Farley's 8 Properties
+## PR Review
 
-Score each 1–10, calculate:
+Five categories. For testing quality, TypeScript, and functional patterns the rules live in the `testing` and `architecture` skills — the entries below are the violations most likely to slip through in a PR.
+
+**Severity**:
+- 🔴 Must fix before merge
+- ⚠️ Should fix; discuss if not
+- 💡 Nice to have
+
+**Output format**:
+```
+## PR Review: #[number] — [title]
+
+| Category | Status | Issues |
+|---|---|---|
+| TDD Compliance      | ✅/❌ | n |
+| Testing Quality     | ✅/❌ | n |
+| TypeScript          | ✅/❌ | n |
+| Functional Patterns | ✅/❌ | n |
+| General Quality     | ✅/❌ | n |
+
+**Recommendation**: APPROVE / REQUEST CHANGES
+
+🔴 [Category]: [issue] — `file.ts:line` — [fix]
+⚠️ [Category]: [issue] — [suggestion]
+💡 [suggestion]
+
+✅ [what's good]
+```
+
+### TDD Compliance
+Every production file changed must have a corresponding test change.
+- ❌ New or modified behaviour with no test update
+- ❌ Tests that appear written after the fact (covering implementation detail rather than behaviour)
+
+### Testing Quality
+See `testing` skill. Key violations:
+- ❌ Spying on internal methods
+- ❌ `let`/`beforeEach` for test data
+- ❌ Test names reference implementation ("should call X")
+- ❌ 1:1 file mapping (test mirrors implementation file)
+
+### TypeScript
+See `architecture` skill. Key violations:
+- ❌ `any` — no exceptions
+- ❌ `as Type` without a justifying comment
+- ❌ `interface` for data structures (use `type`)
+- ❌ Missing `readonly`; `@ts-ignore` without explanation
+
+### Functional Patterns
+See `architecture` skill. Key violations:
+- ❌ `.push()`, `.splice()`, direct property assignment
+- ❌ Nested `if/else` instead of early returns
+- ❌ `for`/`while` loops where array methods apply
+- ❌ Inline comments (rename or extract instead)
+
+### General Quality
+- ❌ `console.log` or debug statements left in
+- ❌ TODO comments without a linked issue
+- ❌ Hardcoded secrets or credentials
+- ❌ PR not summarisable in 1–3 sentences
+- ❌ Changes outside the stated scope of the PR
+
+---
+
+## Farley Score
+
+For deep test suite analysis. Score each property 1–10:
 
 **Farley Score** = `(U×1.5 + M×1.5 + R×1.25 + A + N + G + F×0.75 + T) / 9`
 
@@ -25,7 +90,7 @@ Score each 1–10, calculate:
 
 **Output format**:
 ```
-## Test Design Review: [File/Suite Name]
+## Farley Review: [File/Suite Name]
 
 | Property | Score | Evidence |
 |---|---|---|
@@ -45,6 +110,13 @@ Reference: https://www.linkedin.com/pulse/tdd-properties-good-tests-dave-farley-
 
 ## Checklist
 
+**PR Review**
+- [ ] Every production change has a corresponding test change
+- [ ] No `any`, no unjustified assertions, no data mutation
+- [ ] No debug statements, TODO comments, or out-of-scope changes
+- [ ] PR summarisable in 1–3 sentences
+
+**Farley Score**
 - [ ] Each property scored with specific evidence from the code
-- [ ] Farley Score calculated and band identified
+- [ ] Score calculated and band identified
 - [ ] Top recommendations prioritised by impact
