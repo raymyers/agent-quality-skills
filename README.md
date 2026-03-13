@@ -1,15 +1,17 @@
 # agent-quality-skills
 
-Consolidated skill files for AI coding agents. Four skills distilled from [citypaul/.dotfiles](https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills) — ~83% reduction in tokens while retaining the core behavioural signal.
+Consolidated skill files for AI coding agents. Organized following the [Agent Skills specification](https://agentskills.io/).
+
+Four skills distilled from [citypaul/.dotfiles](https://github.com/citypaul/.dotfiles/tree/main/claude/.claude/skills) — ~83% reduction in tokens while retaining the core behavioural signal.
 
 ## Skills
 
 | Skill | Description |
 |---|---|
-| [architecture](architecture/SKILL.md) | Functional style, TypeScript strict mode, DDD, hexagonal architecture, repository pattern |
-| [testing](testing/SKILL.md) | TDD workflow, behavior-driven tests, factory pattern, coverage, refactoring, mutation testing |
-| [process](process/SKILL.md) | Incremental planning, plan files, PR discipline, documentation, CI debugging |
-| [review](review/SKILL.md) | Test quality scoring using Dave Farley's 8 properties (Farley Score) |
+| [architecture](.agents/skills/architecture/SKILL.md) | Functional style, TypeScript strict mode, DDD, hexagonal architecture, repository pattern |
+| [testing](.agents/skills/testing/SKILL.md) | TDD workflow, behavior-driven tests, factory pattern, coverage, refactoring, mutation testing |
+| [process](.agents/skills/process/SKILL.md) | Incremental planning, plan files, PR discipline, documentation, CI debugging |
+| [review](.agents/skills/review/SKILL.md) | Test quality scoring using Dave Farley's 8 properties (Farley Score) |
 
 ## Usage
 
